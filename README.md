@@ -18,3 +18,19 @@ ExceptionHandler.ignoreExceptionWithErrorMsg(() -> {
   dosomething....            
 }, "exec error");
 ```
+
+```java
+try {
+  // dosomething...
+} catch (Exception e) {
+  log.error(e);
+  throws new MyException("执行错误");
+}
+```
+简化为
+```java
+ExceptionHandler.runtimeException(() -> {
+   // dosomething...
+}, "exec error");
+```
+
