@@ -15,7 +15,7 @@ try {
 简化为
 ```java
 ExceptionHandler.ignoreExceptionWithErrorMsg(() -> {
-  dosomething....            
+  // dosomething....            
 }, "exec error");
 ```
 
@@ -34,3 +34,41 @@ ExceptionHandler.runtimeException(() -> {
 }, "exec error");
 ```
 
+```java
+try {
+  // dosomething...
+} catch (Exception e) {
+  log.error(e);
+  // if exception happen, then exec something...
+  // dosomething
+  log.error("exec error");
+}
+```
+简化为
+```java
+ThrowsHandler.run(() -> {
+    // dosomething...
+   })
+   .whenExceptionThen(() -> //dosomethings...)
+   .logThrowable("exec error");
+```
+
+```java
+try {
+  // dosomething...
+} catch (Exception e) {
+  log.error(e);
+  // if exception happen, then exec something...
+  // dosomething
+  log.error("exec error");
+  throws new MyException("exec error");
+}
+```
+简化为
+```java
+ThrowsHandler.run(() -> {
+    // dosomething...
+   })
+   .whenExceptionThen(() -> //dosomethings...)
+   .runtimeExp("exec error");
+```
